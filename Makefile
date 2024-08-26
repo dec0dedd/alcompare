@@ -17,12 +17,12 @@ run_app:
 	ls -a pages_files
 	ls -a pages_files/assets
 
-	find pages_files -exec sed -i.bak 's|_dash-component-suites|test-ci\\/_dash-component-suites|g' {} \;
-	find pages_files -exec sed -i.bak 's|_dash-layout|test-ci/_dash-layout.json|g' {} \;
-	find pages_files -exec sed -i.bak 's|_dash-dependencies|test-ci/_dash-dependencies.json|g' {} \;
-	find pages_files -exec sed -i.bak 's|_reload-hash|test-ci/_reload-hash|g' {} \;
-	find pages_files -exec sed -i.bak 's|_dash-update-component|test-ci/_dash-update-component|g' {} \;
-	find pages_files -exec sed -i.bak 's|assets|test-ci/assets|g' {} \;
+	find pages_files -exec sed -i.bak 's|_dash-component-suites|stockviz\\/_dash-component-suites|g' {} \;
+	find pages_files -exec sed -i.bak 's|_dash-layout|stockviz/_dash-layout.json|g' {} \;
+	find pages_files -exec sed -i.bak 's|_dash-dependencies|stockviz/_dash-dependencies.json|g' {} \;
+	find pages_files -exec sed -i.bak 's|_reload-hash|stockviz/_reload-hash|g' {} \;
+	find pages_files -exec sed -i.bak 's|_dash-update-component|stockviz/_dash-update-component|g' {} \;
+	find pages_files -exec sed -i.bak 's|assets|stockviz/assets|g' {} \;
 
 	mv pages_files/_dash-layout pages_files/_dash-layout.json
 	mv pages_files/_dash-dependencies pages_files/_dash-dependencies.json
