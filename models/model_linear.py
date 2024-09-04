@@ -29,8 +29,9 @@ def gen_tintv(start, len):
     dt_pred.name = 'dates'
     return dt_pred
 
+print(f"Starting prediction for Linear regression model from {pstart_date} to {end_date}.")
 
-sm_data = gen_tintv(end_date, PRED_LEN)
+sm_data = gen_tintv(pstart_date, PRED_LEN)
 
 for ticker in tickers:
     df = pd.DataFrame(data[ticker], columns=['dates', 'prices', 'volumes'])

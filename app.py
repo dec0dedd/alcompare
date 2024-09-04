@@ -3,12 +3,17 @@ from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
 import json
 import os
-from utils import start_date, end_date, tickers
+from utils import start_date, end_date, tickers, pstart_date
 from utils import download_stock_data
 from pathlib import Path
 
 stock_data = download_stock_data(tickers, start_date, end_date)
 stock_data_json = json.dumps(stock_data)
+
+model_options = [
+    {'label': 'Linear regression', 'value': 'line_reg'},
+    {'label': 'Polynomial regression', 'value': 'poly_reg'}
+]
 
 layout_data = [
     html.H1("Stockviz", style={"text-align": "center"}),
@@ -26,6 +31,12 @@ layout_data = [
 
     dcc.Graph(id='stock-graph'),
 
+    dcc.Checklist(
+        id='model-checklist',
+        options=model_options,
+        value=['line_reg']
+    ),
+
     html.Div(
         id='hidden-stock-data',
         style={'display': 'none'},
@@ -42,6 +53,12 @@ layout_data = [
         id='hidden-end-date',
         style={'display': 'none'},
         children=end_date
+    ),
+
+    html.Div(
+        id='hidden-pstart-date',
+        style={'display': 'none'},
+        children=pstart_date
     )
 ]
 
@@ -50,7 +67,9 @@ graph_input = [
     dd.Input('stock-dropdown', 'value'),
     dd.Input('hidden-start-date', 'children'),
     dd.Input('hidden-end-date', 'children'),
-    dd.Input('sma-checkbox', 'value')
+    dd.Input('hidden-pstart-date', 'children'),
+    dd.Input('sma-checkbox', 'value'),
+    dd.Input('model-checklist', 'value')
 ]
 
 

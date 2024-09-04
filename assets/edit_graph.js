@@ -1,11 +1,23 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
-        edt: function(stock_data_json, selected_stock, start_date, end_date, sma_checkbox) {
+        edt: function(stock_data_json, selected_stock, start_date, end_date, pstart_date, sma_checkbox) {
             var stock_data = JSON.parse(stock_data_json);
             var stock = stock_data[selected_stock];
 
-            const arg_idx = 5;
-            console.log(`Number of forecasts detected: ${arguments.length-arg_idx}`)
+            const arg_idx = 6;
+            console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
+
+            const val_ar = ['line_reg', 'poly_reg'];
+            var model_use = [];
+
+            var model_chk = arguments[arg_idx]
+            for (var i=0; i<val_ar.length; ++i) {
+                if (model_chk.includes(val_ar[i])) {
+                    model_use.push(1);
+                } else {
+                    model_use.push(0);
+                }
+            }
     
             var filtered_dates = [];
             var filtered_prices = [];
@@ -72,6 +84,31 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
             var data = [trace, volume_trace];
             if (sma_checkbox.includes('SMA')) {
                 data.push(sma_trace);
+            }
+
+            for (var i=0; i<model_use.length; ++i) {
+                if (model_use[i] === 0) {
+                    continue;
+                }
+
+                pred_json = JSON.parse(arguments[i+arg_idx+1])[selected_stock];
+
+                var pdates = [];
+                var pprices = [];
+                for (var key in pred_json) {
+                    pdates.push(key)
+                    pprices.push(pred_json[key])
+                }
+
+                var dtrace = {
+                    x: pdates,
+                    y: pprices,
+                    mode: 'lines',
+                    name: "Model " + i,
+                    marker: {color: 'red'}
+                }
+
+                data.push(dtrace)
             }
     
             return {
