@@ -53,4 +53,4 @@ sm_data['dates'] = sm_data['dates'].apply(ts2date)
 sm_data.set_index('dates', inplace=True)
 print(sm_data)
 
-sm_data.to_json('forecasts/LinearRegression.json')
+sm_data.to_json('./forecasts/LinearRegression.json')
