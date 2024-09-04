@@ -1,27 +1,20 @@
 import dash
 from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
-import yfinance as yf
 import json
+import os
 from data import start_date, end_date, tickers
-
-
-def download_stock_data(tickers, start_date, end_date):
-    stock_data = {}
-    for ticker in tickers:
-        df = yf.download(ticker, start=start_date, end=end_date)
-        df.reset_index(inplace=True)
-        stock_data[ticker] = {
-            "dates": df['Date'].dt.strftime('%Y-%m-%d').tolist(),
-            "prices": df['Close'].tolist(),
-            "volumes": df['Volume'].tolist()
-        }
-    return stock_data
+from utils import download_stock_data
 
 
 stock_data = download_stock_data(tickers, start_date, end_date)
 stock_data_json = json.dumps(stock_data)
 
+assert os.path.exists('forecasts')
+
+# Get all predictions from forecasts/ directory
+for file in os.listdir('forecasts'):
+    print(file)
 
 app = dash.Dash(__name__)
 
@@ -31,6 +24,7 @@ with open('desc.md', 'r') as file:
 
 
 app.layout = html.Div([
+    html.H1("Stockviz", style={"text-align": "center"}),
     dcc.Dropdown(
         id='stock-dropdown',
         options=[{'label': ticker, 'value': ticker} for ticker in tickers],
@@ -57,8 +51,6 @@ app.layout = html.Div([
         style={'display': 'none'},
         children=stock_data_json
     ),
-
-    dcc.Markdown(md_text)
 ])
 
 app.clientside_callback(

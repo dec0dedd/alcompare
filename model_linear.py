@@ -41,7 +41,7 @@ for ticker in tickers:
     ).fit(X, y)
 
     mse = mean_squared_error(y, mdl.predict(X))
-    print(f"MSE of {type(mdl).__name__} = {mse} on {ticker}")
+    print(f"MSE of {type(mdl).__name__} = {mse} for {ticker}")
 
     to_pred = gen_tintv(end_date, PRED_LEN).to_frame()
     prd = mdl.predict(to_pred).reshape(PRED_LEN)
