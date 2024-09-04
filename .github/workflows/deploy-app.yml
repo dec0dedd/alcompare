@@ -27,7 +27,7 @@ jobs:
         shell: bash
         run: |
           mkdir forecasts
-          python model_linear.py
+          python models/model_linear.py
 
       - uses: actions/upload-artifact@main
         with:
