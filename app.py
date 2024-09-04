@@ -3,7 +3,7 @@ from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
 import json
 import os
-from data import start_date, end_date, tickers
+from utils import start_date, end_date, tickers
 from utils import download_stock_data
 from pathlib import Path
 
@@ -18,13 +18,6 @@ layout_data = [
         value='NVDA'
     ),
 
-    dcc.DatePickerRange(
-        id='date-picker-range',
-        start_date=start_date,
-        end_date=end_date,
-        display_format='YYYY-MM-DD'
-    ),
-
     dcc.Checklist(
         id='sma-checkbox',
         options=[{'label': 'Show 3-day SMA', 'value': 'SMA'}],
@@ -37,14 +30,26 @@ layout_data = [
         id='hidden-stock-data',
         style={'display': 'none'},
         children=stock_data_json
+    ),
+
+    html.Div(
+        id='hidden-start-date',
+        style={'display': 'none'},
+        children=start_date
+    ),
+
+    html.Div(
+        id='hidden-end-date',
+        style={'display': 'none'},
+        children=end_date
     )
 ]
 
 graph_input = [
     dd.Input('hidden-stock-data', 'children'),
     dd.Input('stock-dropdown', 'value'),
-    dd.Input('date-picker-range', 'start_date'),
-    dd.Input('date-picker-range', 'end_date'),
+    dd.Input('hidden-start-date', 'children'),
+    dd.Input('hidden-end-date', 'children'),
     dd.Input('sma-checkbox', 'value')
 ]
 

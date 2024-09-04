@@ -1,9 +1,11 @@
 import pandas as pd
+import sys
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
-from data import start_date, end_date, tickers, PRED_LEN
-from app import download_stock_data
 from datetime import datetime
+
+sys.path.append(".")
+from utils import start_date, end_date, tickers, PRED_LEN, download_stock_data
 
 data = download_stock_data(tickers, start_date, end_date)
 
