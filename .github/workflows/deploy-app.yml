@@ -63,7 +63,7 @@ jobs:
 
         - uses: actions/upload-artifact@main
           with:
-            name: linear_forecast
+            name: quad_forecast
             path: forecasts/QuadraticRegression.json
 
   run_app:
@@ -90,6 +90,7 @@ jobs:
       - name: Move to forecasts/
         run: |
           mv LinearRegression.json forecasts/LinearRegression.json
+          mv QuadraticRegression.json forecasts/QuadraticRegression.json
       
       - name: Check files
         run: ls --all
