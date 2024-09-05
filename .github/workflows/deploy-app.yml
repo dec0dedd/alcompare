@@ -85,7 +85,7 @@ jobs:
       - name: Download forecasts
         uses: actions/download-artifact@main
         with:
-          name: linear_forecast
+          merge-multiple: true
       
       - name: Move to forecasts/
         run: |
