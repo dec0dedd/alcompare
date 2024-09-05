@@ -1,10 +1,10 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
-        edt: function(stock_data_json, selected_stock, start_date, end_date, pstart_date, sma_checkbox) {
+        edt: function(stock_data_json, selected_stock, start_date, end_date, sma_checkbox) {
             var stock_data = JSON.parse(stock_data_json);
             var stock = stock_data[selected_stock];
 
-            const arg_idx = 6;
+            const arg_idx = 5;
             console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
 
             const val_ar = ['line_reg', 'poly_reg'];
