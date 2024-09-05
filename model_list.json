@@ -1,0 +1,13 @@
+[
+    {
+        "name": "Linear regression",
+        "value": "line_reg",
+        "file": "LinearRegression.json"
+    },
+
+    {
+        "name": "Quadratic regression",
+        "value": "quad_reg",
+        "file": "QuadraticRegression.json"
+    }
+]

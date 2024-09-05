@@ -7,10 +7,11 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
             const arg_idx = 5;
             console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
 
-            const val_ar = ['line_reg', 'poly_reg'];
+            const val_ar = ['line_reg', 'quad_reg'];
             var model_use = [];
 
             var model_chk = arguments[arg_idx]
+            console.log(model_chk)
             for (var i=0; i<val_ar.length; ++i) {
                 if (model_chk.includes(val_ar[i])) {
                     model_use.push(1);
@@ -18,6 +19,8 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                     model_use.push(0);
                 }
             }
+
+            console.log(model_use)
     
             var filtered_dates = [];
             var filtered_prices = [];

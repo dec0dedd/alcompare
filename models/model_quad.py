@@ -30,12 +30,13 @@ def gen_tintv(start, len):
     return dt_pred
 
 
-print(f"Starting prediction for Linear regression model from {pstart_date} to {end_date}.")
+print(f"Starting prediction for Quadratic regression model from {pstart_date} to {end_date}.")
 
 sm_data = gen_tintv(pstart_date, PRED_LEN)
 
 
 def transform_df(df):
+    df['dates^2'] = df['dates']*df['dates']
     return df
 
 
@@ -48,10 +49,18 @@ for ticker in tickers:
     df_train = df.loc[df['dates'] <= date2ts(ptrain_end)]
     df_pred = df.loc[df['dates'] >= date2ts(pstart_date)]
 
-    X_train = df_train.pop('dates').to_frame()
+    X_train = pd.concat(
+        [df_train.pop(x) for x in ['dates', 'dates^2']],
+        axis=1
+    )
+
     y_train = df_train.pop('prices').to_frame()
 
-    X_pred = df_pred.pop('dates').to_frame()
+    X_pred = pd.concat(
+        [df_pred.pop(x) for x in ['dates', 'dates^2']],
+        axis=1
+    )
+
     y_pred = df_pred.pop('prices').to_frame()
 
     mdl = LinearRegression(
@@ -59,7 +68,9 @@ for ticker in tickers:
     ).fit(X_train, y_train)
 
     mse = mean_squared_error(y_train, mdl.predict(X_train))
-    print(f"MSE of Linear regression = {mse} for {ticker}")
+    print(f"MSE of Quadratic regression = {mse} for {ticker}")
+
+    print(mdl.coef_)
 
     to_pred = transform_df(gen_tintv(pstart_date, PRED_LEN).to_frame())
     prd = mdl.predict(to_pred).reshape(PRED_LEN)
@@ -73,4 +84,4 @@ sm_data.set_index('dates', inplace=True)
 assert sm_data.shape[0] == PRED_LEN
 print(sm_data)
 
-sm_data.to_json('./forecasts/LinearRegression.json')
+sm_data.to_json('./forecasts/QuadraticRegression.json')

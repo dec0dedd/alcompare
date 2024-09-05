@@ -3,17 +3,16 @@ from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
 import json
 import os
-from utils import start_date, end_date, tickers, pstart_date
+from utils import start_date, end_date, tickers
 from utils import download_stock_data
 from pathlib import Path
 
 stock_data = download_stock_data(tickers, start_date, end_date)
 stock_data_json = json.dumps(stock_data)
 
-model_options = [
-    {'label': 'Linear regression', 'value': 'line_reg'},
-    {'label': 'Polynomial regression', 'value': 'poly_reg'}
-]
+mdl_data = ""
+with open("model_list.json") as file:
+    mdl_data = json.load(file)
 
 layout_data = [
     html.H1("Stockviz", style={"text-align": "center"}),
@@ -33,7 +32,7 @@ layout_data = [
 
     dcc.Checklist(
         id='model-checklist',
-        options=model_options,
+        options=[{'label': x['name'], 'value': x['value']} for x in mdl_data],
         value=['line_reg']
     ),
 
@@ -69,20 +68,20 @@ graph_input = [
 assert os.path.exists('forecasts')
 
 # Get all predictions from forecasts/ directory
-for fn in os.listdir('forecasts'):
-    print(f"Adding data from {fn}")
+for mdl in mdl_data:
+    print(f"Adding data from {mdl['name']}!")
 
-    with open(os.path.join('forecasts', fn)) as file:
+    with open(os.path.join('forecasts', mdl['file'])) as file:
         layout_data.append(
             html.Div(
-                id=f'pred-{Path(fn).stem}',
+                id=f'pred-{Path(mdl["file"]).stem}',
                 style={'display': 'none'},
                 children=json.dumps(json.load(file))
             )
         )
 
         graph_input.append(
-            dd.Input(f'pred-{Path(fn).stem}', 'children')
+            dd.Input(f'pred-{Path(mdl["file"]).stem}', 'children')
         )
 
 app = dash.Dash(__name__)
