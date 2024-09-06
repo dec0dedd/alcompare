@@ -14,6 +14,26 @@ mdl_data = ""
 with open("model_list.json") as file:
     mdl_data = json.load(file)
 
+layout = {
+    'shapes': [
+        # Vertical rectangle
+        {
+            'type': 'rect',
+            'xref': 'x',
+            'yref': 'paper',
+            'x0': 2,  # Start of rectangle on x-axis
+            'x1': 3,  # End of rectangle on x-axis
+            'y0': 0,  # Start on y-axis (0 means bottom)
+            'y1': 1,  # End on y-axis (1 means top of graph)
+            'fillcolor': 'LightSkyBlue',
+            'opacity': 0.5,
+            'line': {
+                'width': 0,
+            },
+        }
+    ],
+}
+
 layout_data = [
     html.H1("Alcompare", style={"text-align": "center"}),
     dcc.Dropdown(
@@ -28,7 +48,12 @@ layout_data = [
         value=[]
     ),
 
-    dcc.Graph(id='stock-graph'),
+    dcc.Graph(
+        id='stock-graph',
+        figure={
+            'layout': layout
+        },
+    ),
 
     dcc.Checklist(
         id='model-checklist',
@@ -109,6 +134,8 @@ app.clientside_callback(
     dd.Output('stock-graph', 'figure'),
     graph_input
 )
+
+app.title = "Alcompare"
 
 if __name__ == '__main__':
     app.run_server(debug=False)
