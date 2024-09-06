@@ -18,5 +18,12 @@
         "value": "lgbm",
         "file": "LGBM.json",
         "color": "purple"
+    },
+
+    {
+        "name": "XGBoost",
+        "value": "xgb",
+        "file": "XGB.json",
+        "color": "black"
     }
 ]

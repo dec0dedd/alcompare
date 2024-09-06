@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 
 RND_INT = 1237  # random state in forecasting models
-PRED_LEN = 90  # number of days of prediction for forecasting models
+PRED_LEN = 120  # number of days of prediction for forecasting models
 
 tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS']
 end_date = datetime.today() - timedelta(1)

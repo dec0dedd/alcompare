@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
-from lightgbm import LGBMRegressor
+from xgboost import XGBRegressor
 from sklearn.metrics import mean_squared_error
 from datetime import datetime
 
@@ -54,14 +54,14 @@ for ticker in tickers:
     y_pred = df_pred.pop('prices')
 
     mdl = ForecasterAutoreg(
-        regressor=LGBMRegressor(random_state=RND_INT, verbose=-1),
+        regressor=XGBRegressor(random_state=RND_INT, verbose=-1),
         lags=30
     )
 
     mdl.fit(y=y_train)
 
     mse = mean_squared_error(y_pred, mdl.predict(steps=y_pred.shape[0]))
-    print(f"MSE of LGBM forecast = {mse} for {ticker}")
+    print(f"MSE of XGB forecast = {mse} for {ticker}")
 
     prd = mdl.predict(steps=PRED_LEN).reset_index(drop=True)
     prd.name = ticker
@@ -78,4 +78,4 @@ sm_data.set_index('dates', inplace=True)
 assert sm_data.shape[0] == PRED_LEN
 print(sm_data)
 
-sm_data.to_json('./forecasts/LGBM.json')
+sm_data.to_json('./forecasts/XGB.json')

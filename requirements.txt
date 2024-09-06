@@ -52,5 +52,6 @@ urllib3==2.2.2
 webencodings==0.5.1
 Werkzeug==3.0.4
 wheel==0.43.0
+xgboost-cpu==2.1.1
 yfinance==0.2.43
 zipp==3.20.0
