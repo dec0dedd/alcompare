@@ -95,7 +95,7 @@ jobs:
 
         - uses: actions/upload-artifact@main
           with:
-            name: quad_forecast
+            name: lgbm_forecast
             path: forecasts/LGBM.json
 
 
