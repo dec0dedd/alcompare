@@ -15,7 +15,7 @@ with open("model_list.json") as file:
     mdl_data = json.load(file)
 
 layout_data = [
-    html.H1("Stockviz", style={"text-align": "center"}),
+    html.H1("Alcompare", style={"text-align": "center"}),
     dcc.Dropdown(
         id='stock-dropdown',
         options=[{'label': ticker, 'value': ticker} for ticker in tickers],
