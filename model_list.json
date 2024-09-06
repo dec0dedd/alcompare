@@ -7,13 +7,6 @@
     },
 
     {
-        "name": "Quadratic regression",
-        "value": "quad_reg",
-        "file": "QuadraticRegression.json",
-        "color": "blue"
-    },
-
-    {
         "name": "LightGBM",
         "value": "lgbm",
         "file": "LGBM.json",
