@@ -123,7 +123,6 @@ jobs:
       - name: Move to forecasts/
         run: |
           mv LinearRegression.json forecasts/LinearRegression.json
-          mv QuadraticRegression.json forecasts/QuadraticRegression.json
           mv LGBM.json forecasts/LGBM.json
           mv XGB.json forecasts/XGB.json
       
