@@ -1,9 +1,12 @@
 import yfinance as yf
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+import warnings
+
+warnings.filterwarnings('ignore')
 
 RND_INT = 1237  # random state in forecasting models
-PRED_LEN = 30  # number of days of prediction for forecasting models
+PRED_LEN = 90  # number of days of prediction for forecasting models
 
 tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS']
 end_date = datetime.today() - timedelta(1)
@@ -27,6 +30,7 @@ ptrain_end = ptrain_end.strftime('%Y-%m-%d')
 
 def download_stock_data(tickers, start_date, end_date):
     stock_data = {}
+
     for ticker in tickers:
         df = yf.download(ticker, start=start_date, end=end_date)
         df.reset_index(inplace=True)

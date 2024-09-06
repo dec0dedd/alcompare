@@ -52,6 +52,12 @@ layout_data = [
         id='hidden-end-date',
         style={'display': 'none'},
         children=end_date
+    ),
+
+    html.Div(
+        id='hidden-model-data',
+        style={'display': 'none'},
+        children=json.dumps(mdl_data)
     )
 ]
 
@@ -60,6 +66,7 @@ graph_input = [
     dd.Input('stock-dropdown', 'value'),
     dd.Input('hidden-start-date', 'children'),
     dd.Input('hidden-end-date', 'children'),
+    dd.Input('hidden-model-data', 'children'),
     dd.Input('sma-checkbox', 'value'),
     dd.Input('model-checklist', 'value')
 ]

@@ -1,19 +1,37 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
-        edt: function(stock_data_json, selected_stock, start_date, end_date, sma_checkbox) {
+        edt: function(stock_data_json, selected_stock, start_date, end_date, model_json, sma_checkbox) {
             var stock_data = JSON.parse(stock_data_json);
+            var model_data = JSON.parse(model_json)
             var stock = stock_data[selected_stock];
 
-            const arg_idx = 5;
+            const arg_idx = 6;
             console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
 
-            const val_ar = ['line_reg', 'quad_reg'];
+            const mdl_value = [];
+            const mdl_name = [];
+            const mdl_color = [];
+
+            for (var i=0; i < model_data.length; ++i) {
+                var obj = model_data[i];
+
+                for (var key in obj) {
+                    if (key === "name") {
+                        mdl_name.push(obj[key])
+                    } else if (key === "value") {
+                        mdl_value.push(obj[key])
+                    } else if (key == "color") {
+                        mdl_color.push(obj[key])
+                    }
+                }
+            }
+
             var model_use = [];
 
             var model_chk = arguments[arg_idx]
-            console.log(model_chk)
-            for (var i=0; i<val_ar.length; ++i) {
-                if (model_chk.includes(val_ar[i])) {
+            for (var i=0; i<mdl_value.length; ++i) {
+                console.log(mdl_value[i])
+                if (model_chk.includes(mdl_value[i])) {
                     model_use.push(1);
                 } else {
                     model_use.push(0);
@@ -107,8 +125,8 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                     x: pdates,
                     y: pprices,
                     mode: 'lines',
-                    name: "Model " + i,
-                    marker: {color: 'red'}
+                    name: mdl_name[i],
+                    marker: {color: mdl_color[i]}
                 }
 
                 data.push(dtrace)
