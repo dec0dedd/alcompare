@@ -22,12 +22,6 @@ layout_data = [
         value='NVDA'
     ),
 
-    dcc.Checklist(
-        id='sma-checkbox',
-        options=[{'label': 'Show 3-day SMA', 'value': 'SMA'}],
-        value=[]
-    ),
-
     dcc.Graph(
         id='stock-graph'
     ),
@@ -36,6 +30,19 @@ layout_data = [
         id='model-checklist',
         options=[{'label': x['name'], 'value': x['value']} for x in mdl_data],
         value=['line_reg']
+    ),
+
+    dcc.Tabs(
+        id='metric-tabs',
+        children=[
+            dcc.Tab(label='MSE', value='mse'),
+            dcc.Tab(label='MAPE', value='mape')
+        ],
+        value='mse'
+    ),
+
+    dcc.Graph(
+        id='metric-graph'
     ),
 
     html.Div(
@@ -70,14 +77,7 @@ layout_data = [
 ]
 
 graph_input = [
-    dd.Input('hidden-stock-data', 'children'),
-    dd.Input('stock-dropdown', 'value'),
-    dd.Input('hidden-start-date', 'children'),
-    dd.Input('hidden-end-date', 'children'),
-    dd.Input('hidden-pstart-date', 'children'),
-    dd.Input('hidden-model-data', 'children'),
-    dd.Input('sma-checkbox', 'value'),
-    dd.Input('model-checklist', 'value')
+
 ]
 
 
@@ -112,11 +112,34 @@ app.layout = html.Div(layout_data)
 app.clientside_callback(
     ClientsideFunction(
         namespace='clientside',
-        function_name='edt'
+        function_name='edit_stock'
     ),
 
     dd.Output('stock-graph', 'figure'),
-    graph_input
+    [
+        dd.Input('hidden-stock-data', 'children'),
+        dd.Input('stock-dropdown', 'value'),
+        dd.Input('hidden-start-date', 'children'),
+        dd.Input('hidden-end-date', 'children'),
+        dd.Input('hidden-pstart-date', 'children'),
+        dd.Input('hidden-model-data', 'children'),
+        dd.Input('model-checklist', 'value')
+    ] + graph_input
+)
+
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='metric_ed',
+        function_name='edit_metric'
+    ),
+
+    dd.Output('metric-graph', 'figure'),
+    [
+        dd.Input('stock-dropdown', 'value'),
+        dd.Input('hidden-model-data', 'children'),
+        dd.Input('metric-tabs', 'value'),
+        dd.Input('model-checklist', 'value')
+    ] + graph_input
 )
 
 app.title = "Alcompare"

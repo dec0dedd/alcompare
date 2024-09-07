@@ -1,8 +1,9 @@
 import pandas as pd
 import sys
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 from datetime import datetime
+import json
 
 sys.path.append(".")
 from utils import start_date, end_date, ptrain_end, pstart_date, tickers, PRED_LEN, download_stock_data
@@ -34,6 +35,12 @@ print(f"Starting prediction for Linear regression model from {pstart_date} to {e
 
 sm_data = gen_tintv(pstart_date, PRED_LEN)
 
+dc = {
+    'metrics': {
+        ticker: {} for ticker in tickers
+    },
+}
+
 
 def transform_df(df):
     return df
@@ -59,7 +66,13 @@ for ticker in tickers:
     ).fit(X_train, y_train)
 
     mse = mean_squared_error(y_train, mdl.predict(X_train))
-    print(f"MSE of Linear regression = {mse} for {ticker}")
+    mape = mean_absolute_percentage_error(y_pred, mdl.predict(X_pred))
+    print(f"Metrics for LGBM forecast on {ticker}:")
+    print(f"MSE: {mse}")
+    print(f"MAPE: {mape}")
+
+    dc['metrics'][ticker]['MSE'] = mse
+    dc['metrics'][ticker]['MAPE'] = mape
 
     to_pred = transform_df(gen_tintv(pstart_date, PRED_LEN).to_frame())
     prd = mdl.predict(to_pred).reshape(PRED_LEN)
@@ -71,6 +84,8 @@ sm_data['dates'] = sm_data['dates'].apply(ts2date)
 sm_data.set_index('dates', inplace=True)
 
 assert sm_data.shape[0] == PRED_LEN
-print(sm_data)
 
-sm_data.to_json('./forecasts/LinearRegression.json')
+dc['data'] = sm_data.to_dict()
+
+with open('./forecasts/LinearRegression.json', 'w') as fl:
+    json.dump(dc, fl)

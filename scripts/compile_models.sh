@@ -2,6 +2,6 @@
 
 echo "Started model compilation!"
 for filename in models/*.py; do
-    python "$filename" > /dev/null 2>&1
+    python "$filename" > /dev/null
     echo "Compiled $filename!"
 done

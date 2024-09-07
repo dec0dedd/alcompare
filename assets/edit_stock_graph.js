@@ -1,11 +1,11 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
-        edt: function(stock_data_json, selected_stock, start_date, end_date, pstart_date, model_json, sma_checkbox) {
+        edit_stock: function(stock_data_json, selected_stock, start_date, end_date, pstart_date, model_json) {
             var stock_data = JSON.parse(stock_data_json);
             var model_data = JSON.parse(model_json)
             var stock = stock_data[selected_stock];
 
-            const arg_idx = 7;
+            const arg_idx = 6;
             console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
 
             const mdl_value = [];
@@ -51,28 +51,12 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 }
             }
 
-            var sma_prices = [];
-            if (sma_checkbox.includes('SMA')) {
-                for (var i = 2; i < filtered_prices.length; i++) {
-                    var sma = (filtered_prices[i] + filtered_prices[i-1] + filtered_prices[i-2]) / 3;
-                    sma_prices.push(sma);
-                }
-            }
-
             var trace = {
                 x: filtered_dates,
                 y: filtered_prices,
                 mode: 'lines',
                 name: selected_stock + ' Prices',
-                marker: {color: 'red'}
-            };
-
-            var sma_trace = {
-                x: filtered_dates.slice(2),
-                y: sma_prices,
-                mode: 'lines',
-                name: selected_stock + ' 3-day SMA',
-                line: {dash: 'dash', color: 'blue'}
+                marker: {color: 'red'},
             };
 
             var layout = {
@@ -84,16 +68,13 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
             };
 
             var data = [trace];
-            if (sma_checkbox.includes('SMA')) {
-                data.push(sma_trace);
-            }
 
             for (var i=0; i<model_use.length; ++i) {
                 if (model_use[i] === 0) {
                     continue;
                 }
 
-                pred_json = JSON.parse(arguments[i+arg_idx+1])[selected_stock];
+                var pred_json = JSON.parse(arguments[i+arg_idx+1])['data'][selected_stock]
 
                 var pdates = [];
                 var pprices = [];
