@@ -2,7 +2,7 @@ import pandas as pd
 import sys
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
 from xgboost import XGBRegressor
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error, r2_score, median_absolute_error
 from datetime import datetime
 import json
 
@@ -70,12 +70,18 @@ for ticker in tickers:
 
     mse = mean_squared_error(y_pred, mdl.predict(steps=y_pred.shape[0]))
     mape = mean_absolute_percentage_error(y_pred, mdl.predict(y_pred.shape[0]))
+    r2 = r2_score(y_pred, mdl.predict(y_pred.shape[0]))
+    medae = median_absolute_error(y_pred, mdl.predict(y_pred.shape[0]))
     print(f"Metrics for LGBM forecast on {ticker}:")
     print(f"MSE: {mse}")
     print(f"MAPE: {mape}")
+    print(f"R2: {r2}")
+    print(f"MedAE: {medae}")
 
     dc['metrics'][ticker]['MSE'] = mse
     dc['metrics'][ticker]['MAPE'] = mape
+    dc['metrics'][ticker]['R2'] = r2
+    dc['metrics'][ticker]['MedAE'] = medae
 
     prd = mdl.predict(steps=PRED_LEN).reset_index(drop=True)
     prd.name = ticker

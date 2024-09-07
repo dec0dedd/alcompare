@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error, r2_score, median_absolute_error
 from datetime import datetime
 import json
 
@@ -67,12 +67,18 @@ for ticker in tickers:
 
     mse = mean_squared_error(y_train, mdl.predict(X_train))
     mape = mean_absolute_percentage_error(y_pred, mdl.predict(X_pred))
+    r2 = r2_score(y_pred, mdl.predict(X_pred))
+    medae = median_absolute_error(y_pred, mdl.predict(X_pred))
     print(f"Metrics for LGBM forecast on {ticker}:")
     print(f"MSE: {mse}")
     print(f"MAPE: {mape}")
+    print(f"R^2: {r2}")
+    print(f"MedAE: {medae}")
 
     dc['metrics'][ticker]['MSE'] = mse
     dc['metrics'][ticker]['MAPE'] = mape
+    dc['metrics'][ticker]['R2'] = r2
+    dc['metrics'][ticker]['MedAE'] = medae
 
     to_pred = transform_df(gen_tintv(pstart_date, PRED_LEN).to_frame())
     prd = mdl.predict(to_pred).reshape(PRED_LEN)

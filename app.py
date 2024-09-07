@@ -14,6 +14,10 @@ mdl_data = ""
 with open("model_list.json") as file:
     mdl_data = json.load(file)
 
+md_text = ""
+with open("desc.md") as file:
+    md_text = file.read()
+
 layout_data = [
     html.H1("Alcompare", style={"text-align": "center"}),
     dcc.Dropdown(
@@ -29,14 +33,16 @@ layout_data = [
     dcc.Checklist(
         id='model-checklist',
         options=[{'label': x['name'], 'value': x['value']} for x in mdl_data],
-        value=['line_reg']
+        value=['line_reg', 'xgb']
     ),
 
     dcc.Tabs(
         id='metric-tabs',
         children=[
             dcc.Tab(label='MSE', value='mse'),
-            dcc.Tab(label='MAPE', value='mape')
+            dcc.Tab(label='MAPE', value='mape'),
+            dcc.Tab(label='R2', value='r2'),
+            dcc.Tab(label='MedAE', value='medae')
         ],
         value='mse'
     ),
@@ -73,7 +79,9 @@ layout_data = [
         id='hidden-model-data',
         style={'display': 'none'},
         children=json.dumps(mdl_data)
-    )
+    ),
+
+    dcc.Markdown(md_text)
 ]
 
 graph_input = []

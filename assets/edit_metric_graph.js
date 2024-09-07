@@ -36,7 +36,9 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
 
             var metric_conv = {
                 'mse': 'MSE',
-                'mape': 'MAPE'
+                'mape': 'MAPE',
+                'r2': 'R2',
+                'medae': 'MedAE'
             }
 
             var data = [];
