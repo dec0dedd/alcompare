@@ -39,3 +39,7 @@ clean_dirs:
 	rm -rf 127.0.0.1:8050/
 	rm -rf pages_files/
 	rm -rf joblib
+
+forecast:
+	mkdir -p forecasts
+	bash scripts/compile_models.sh
