@@ -49,9 +49,10 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 console.log(met_data)
 
                 var dbar = {
-                    x: [mdl_name[i]],
-                    y: [met_data],
-                    type: 'bar'
+                    x: [met_data],
+                    y: [mdl_name[i]],
+                    type: 'bar',
+                    orientation: 'h'
                 };
 
                 data.push(dbar)
@@ -59,7 +60,8 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
 
             var layout = {
                 title: 'Model metrics on ' + selected_stock + ' stock prices',
-
+                xaxis: {title: metric_conv[selected_metric]},
+                showlegend: false
             }
 
             console.log(data)

@@ -76,9 +76,7 @@ layout_data = [
     )
 ]
 
-graph_input = [
-
-]
+graph_input = []
 
 
 assert os.path.exists('forecasts')
