@@ -1,1 +1,1 @@
-# <center> Alcompare </center>
+<p align="center">Alcompare</p>
