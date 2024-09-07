@@ -6,11 +6,11 @@ import warnings
 warnings.filterwarnings('ignore')
 
 RND_INT = 1237  # random state in forecasting models
-PRED_LEN = 120  # number of days of prediction for forecasting models
+PRED_LEN = 360  # number of days of prediction for forecasting models
 
 tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS']
 end_date = datetime.today() - timedelta(1)
-start_date = end_date - relativedelta(years=1)
+start_date = end_date - relativedelta(years=2)
 
 pstart_date = end_date - timedelta(PRED_LEN-1)
 pend_date = end_date

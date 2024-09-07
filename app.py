@@ -3,7 +3,7 @@ from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
 import json
 import os
-from utils import start_date, end_date, tickers
+from utils import start_date, end_date, pstart_date, tickers
 from utils import download_stock_data
 from pathlib import Path
 
@@ -13,26 +13,6 @@ stock_data_json = json.dumps(stock_data)
 mdl_data = ""
 with open("model_list.json") as file:
     mdl_data = json.load(file)
-
-layout = {
-    'shapes': [
-        # Vertical rectangle
-        {
-            'type': 'rect',
-            'xref': 'x',
-            'yref': 'paper',
-            'x0': 2,  # Start of rectangle on x-axis
-            'x1': 3,  # End of rectangle on x-axis
-            'y0': 0,  # Start on y-axis (0 means bottom)
-            'y1': 1,  # End on y-axis (1 means top of graph)
-            'fillcolor': 'LightSkyBlue',
-            'opacity': 0.5,
-            'line': {
-                'width': 0,
-            },
-        }
-    ],
-}
 
 layout_data = [
     html.H1("Alcompare", style={"text-align": "center"}),
@@ -49,10 +29,7 @@ layout_data = [
     ),
 
     dcc.Graph(
-        id='stock-graph',
-        figure={
-            'layout': layout
-        },
+        id='stock-graph'
     ),
 
     dcc.Checklist(
@@ -80,6 +57,12 @@ layout_data = [
     ),
 
     html.Div(
+        id='hidden-pstart-date',
+        style={'display': 'none'},
+        children=pstart_date
+    ),
+
+    html.Div(
         id='hidden-model-data',
         style={'display': 'none'},
         children=json.dumps(mdl_data)
@@ -91,6 +74,7 @@ graph_input = [
     dd.Input('stock-dropdown', 'value'),
     dd.Input('hidden-start-date', 'children'),
     dd.Input('hidden-end-date', 'children'),
+    dd.Input('hidden-pstart-date', 'children'),
     dd.Input('hidden-model-data', 'children'),
     dd.Input('sma-checkbox', 'value'),
     dd.Input('model-checklist', 'value')

@@ -3,7 +3,7 @@
         "name": "Linear regression",
         "value": "line_reg",
         "file": "LinearRegression.json",
-        "color": "red"
+        "color": "green"
     },
 
     {

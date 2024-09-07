@@ -1,11 +1,11 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
-        edt: function(stock_data_json, selected_stock, start_date, end_date, model_json, sma_checkbox) {
+        edt: function(stock_data_json, selected_stock, start_date, end_date, pstart_date, model_json, sma_checkbox) {
             var stock_data = JSON.parse(stock_data_json);
             var model_data = JSON.parse(model_json)
             var stock = stock_data[selected_stock];
 
-            const arg_idx = 6;
+            const arg_idx = 7;
             console.log(`Number of forecasts detected: ${arguments.length-arg_idx-1}`);
 
             const mdl_value = [];
@@ -30,19 +30,15 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
 
             var model_chk = arguments[arg_idx]
             for (var i=0; i<mdl_value.length; ++i) {
-                console.log(mdl_value[i])
                 if (model_chk.includes(mdl_value[i])) {
                     model_use.push(1);
                 } else {
                     model_use.push(0);
                 }
             }
-
-            console.log(model_use)
     
             var filtered_dates = [];
             var filtered_prices = [];
-            var filtered_volumes = [];
     
             var start = new Date(start_date);
             var end = new Date(end_date);
@@ -52,7 +48,6 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 if (date >= start && date <= end) {
                     filtered_dates.push(stock.dates[i]);
                     filtered_prices.push(stock.prices[i]);
-                    filtered_volumes.push(stock.volumes[i]);
                 }
             }
 
@@ -69,40 +64,26 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 y: filtered_prices,
                 mode: 'lines',
                 name: selected_stock + ' Prices',
-                marker: {color: 'green'}
+                marker: {color: 'red'}
             };
 
             var sma_trace = {
-                x: filtered_dates.slice(2),  // SMA starts from the 3rd date
+                x: filtered_dates.slice(2),
                 y: sma_prices,
                 mode: 'lines',
                 name: selected_stock + ' 3-day SMA',
                 line: {dash: 'dash', color: 'blue'}
             };
 
-            var volume_trace = {
-                x: filtered_dates,
-                y: filtered_volumes,
-                type: 'bar',
-                name: selected_stock + ' Volume',
-                yaxis: 'y2',
-                opacity: 0.3,
-                marker: {color: 'orange'}
-            };
-
             var layout = {
                 title: selected_stock + ' Stock Prices',
                 xaxis: {title: 'Date'},
                 yaxis: {title: 'Price (USD)'},
-                yaxis2: {
-                    title: 'Volume',
-                    overlaying: 'y',
-                    side: 'right'
-                },
-                margin: {l: 40, r: 40, t: 40, b: 40}
+                template: 'seaborn',
+                shapes: []
             };
 
-            var data = [trace, volume_trace];
+            var data = [trace];
             if (sma_checkbox.includes('SMA')) {
                 data.push(sma_trace);
             }
@@ -129,12 +110,29 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                     marker: {color: mdl_color[i]}
                 }
 
-                data.push(dtrace)
+                data.push(dtrace);
             }
-    
+
+            const pred_rect = {
+                type: 'rect',
+                x0: pstart_date, 
+                x1: end_date,
+                y0: 0,
+                y1: 1,
+                xref: 'x',
+                yref: 'paper',
+                line: {
+                    color: 'rgba(255,0,0,0.5)',
+                    width: 2
+                },
+                fillcolor: 'rgba(255,0,0,0.2)'
+            };
+
+            layout.shapes.push(pred_rect);
+
             return {
                 data: data,
-                layout: layout
+                layout: layout,
             };
         }
     }
