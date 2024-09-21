@@ -18,6 +18,12 @@ md_text = ""
 with open("desc.md") as file:
     md_text = file.read()
 
+metric_style = {
+    'width': '95vw',
+    'marginLeft': 'auto',
+    'marginRight': 'auto'
+}
+
 layout_data = [
     html.H1("Alcompare", style={"text-align": "center"}),
     dcc.Dropdown(
@@ -44,11 +50,13 @@ layout_data = [
             dcc.Tab(label='R2', value='r2'),
             dcc.Tab(label='MedAE', value='medae')
         ],
-        value='mse'
+        value='mse',
+        style=metric_style
     ),
 
     dcc.Graph(
-        id='metric-graph'
+        id='metric-graph',
+        style=metric_style
     ),
 
     html.Div(

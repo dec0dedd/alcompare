@@ -103,10 +103,10 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 xref: 'x',
                 yref: 'paper',
                 line: {
-                    color: 'rgba(255,0,0,0.5)',
+                    color: 'rgba(27, 69, 99, 0.5)',
                     width: 2
                 },
-                fillcolor: 'rgba(255,0,0,0.2)'
+                fillcolor: 'rgba(27, 69, 99, 0.2)'
             };
 
             layout.shapes.push(pred_rect);

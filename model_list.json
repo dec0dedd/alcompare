@@ -1,6 +1,6 @@
 [
     {
-        "name": "Linear regression",
+        "name": "Linear",
         "value": "line_reg",
         "file": "LinearRegression.json",
         "color": "green"
