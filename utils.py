@@ -6,8 +6,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 RND_INT = 1237  # random state in forecasting models
-PRED_LEN = 30  # number of days of prediction for forecasting models
-VIS_LEN = 120  # number of days used in visualization
+PRED_LEN = 60  # number of days of prediction for forecasting models
+VIS_LEN = 240  # number of days used in visualization
 
 """
 start_date/end_date - start/end date of all data
