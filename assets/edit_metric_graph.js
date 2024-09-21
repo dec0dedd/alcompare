@@ -21,6 +21,9 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 }
             }
 
+            console.log("AAAAAAAAAAAAa")
+            console.log(model_data)
+
             var mdl_use = [];
             var mdl_chk = arguments[arg_idx]
 
@@ -55,7 +58,8 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                     y: [mdl_name[i]],
                     name: mdl_name[i],
                     type: 'bar',
-                    orientation: 'h'
+                    orientation: 'h',
+                    marker: {'color': model_data[i]['color']}
                 };
 
                 data.push(dbar)
