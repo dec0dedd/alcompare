@@ -2,12 +2,14 @@ import pandas as pd
 import sys
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
 from xgboost import XGBRegressor
-from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error, r2_score, median_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
+from sklearn.metrics import r2_score, median_absolute_error
 from datetime import datetime
 import json
 
 sys.path.append(".")
-from utils import start_date, end_date, pstart_date, tickers, PRED_LEN, download_stock_data, RND_INT
+from utils import start_date, end_date, ppred_start, ppred_end, tickers
+from utils import PRED_LEN, download_stock_data, RND_INT
 
 data = download_stock_data(tickers, start_date, end_date)
 
@@ -32,7 +34,7 @@ def gen_tintv(start, len):
     return dt_pred
 
 
-sm_data = gen_tintv(pstart_date, PRED_LEN)
+sm_data = gen_tintv(ppred_start, PRED_LEN)
 
 
 dc = {
@@ -52,8 +54,8 @@ for ticker in tickers:
     df['dates'] = df['dates'].apply(date2ts)
     df = transform_df(df)
 
-    df_train = df.loc[df['dates'] < date2ts(pstart_date)]
-    df_pred = df.loc[df['dates'] >= date2ts(pstart_date)]
+    df_train = df.loc[df['dates'] < date2ts(ppred_start)]
+    df_pred = df.loc[df['dates'] >= date2ts(ppred_start)]
 
     X_train = df_train.pop('dates').to_frame()
     y_train = df_train.pop('prices')

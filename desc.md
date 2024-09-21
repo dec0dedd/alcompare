@@ -8,4 +8,4 @@ Alcompare provides you with useful visualizations of models' predictions which a
 
 ## Can I contribute?
 
-If you have any idea, suggestion or a comment feel free to open a merge request, issue or contact me via my [email](mailto:michal.burzynski0805@gmail.com). Feel free to visit my [GitHub profile](https://github.com/dec0dedd) and check out other projects.
+If you have an idea, suggestion or a comment feel free to open a merge request, issue or contact me via my [email](mailto:michal.burzynski0805@gmail.com). Feel free to visit my [GitHub profile](https://github.com/dec0dedd) and check out other projects.

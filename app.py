@@ -3,8 +3,8 @@ from dash import html, dcc, ClientsideFunction
 import dash.dependencies as dd
 import json
 import os
-from utils import start_date, end_date, pstart_date, tickers
-from utils import download_stock_data
+from utils import vis_start, vis_end, ppred_start, start_date, end_date
+from utils import download_stock_data, tickers
 from pathlib import Path
 
 stock_data = download_stock_data(tickers, start_date, end_date)
@@ -68,19 +68,19 @@ layout_data = [
     html.Div(
         id='hidden-start-date',
         style={'display': 'none'},
-        children=start_date
+        children=vis_start
     ),
 
     html.Div(
         id='hidden-end-date',
         style={'display': 'none'},
-        children=end_date
+        children=vis_end
     ),
 
     html.Div(
         id='hidden-pstart-date',
         style={'display': 'none'},
-        children=pstart_date
+        children=ppred_start
     ),
 
     html.Div(
