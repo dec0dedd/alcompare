@@ -16,7 +16,7 @@ ppred_start/ppred_end - start/end date used for prediction
 vis_start/vis_end - start/end date of points used in visualization
 """
 
-tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS']
+tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS', 'AMZN', 'TSM']
 end_date = datetime.today() - timedelta(1)
 start_date = end_date - relativedelta(years=10)
 
