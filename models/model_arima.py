@@ -1,6 +1,6 @@
 import pandas as pd
 import sys
-from sklearn.linear_model import LinearRegression
+from sktime.forecasting.arima import ARIMA
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 from sklearn.metrics import r2_score, median_absolute_error
 from datetime import datetime
@@ -33,7 +33,7 @@ def gen_tintv(start, len):
     return dt_pred
 
 
-print(f"Starting prediction for Linear regression model from {ppred_start} to {ppred_end}.")
+print(f"Starting prediction for AutoARIMA model from {ppred_start} to {ppred_end}.")
 
 sm_data = gen_tintv(ppred_start, PRED_LEN)
 
@@ -63,15 +63,15 @@ for ticker in tickers:
     X_pred = df_pred.pop('dates').to_frame()
     y_pred = df_pred.pop('prices').to_frame()
 
-    mdl = LinearRegression(
-        n_jobs=-1
-    ).fit(X_train, y_train)
+    mdl = ARIMA().fit(y_train)
 
-    mse = mean_squared_error(y_pred, mdl.predict(X_pred))
-    mape = mean_absolute_percentage_error(y_pred, mdl.predict(X_pred))
-    r2 = r2_score(y_pred, mdl.predict(X_pred))
-    medae = median_absolute_error(y_pred, mdl.predict(X_pred))
-    print(f"Metrics for Linear forecast on {ticker}:")
+    print(y_pred)
+
+    mse = mean_squared_error(y_pred, mdl.predict(y_pred.index))
+    mape = mean_absolute_percentage_error(y_pred, mdl.predict(y_pred.index))
+    r2 = r2_score(y_pred, mdl.predict(y_pred.index))
+    medae = median_absolute_error(y_pred, mdl.predict(y_pred.index))
+    print(f"Metrics for ARIMA forecast on {ticker}:")
     print(f"MSE: {mse}")
     print(f"MAPE: {mape}")
     print(f"R^2: {r2}")
@@ -81,9 +81,7 @@ for ticker in tickers:
     dc['metrics'][ticker]['MAPE'] = mape
     dc['metrics'][ticker]['R2'] = r2
     dc['metrics'][ticker]['MedAE'] = medae
-
-    to_pred = transform_df(gen_tintv(ppred_start, PRED_LEN).to_frame())
-    prd = mdl.predict(to_pred).reshape(PRED_LEN)
+    prd = mdl.predict([i+y_train.shape[0] for i in range(0, PRED_LEN)]).to_numpy().reshape(PRED_LEN)
 
     sm_data = pd.concat([sm_data, pd.Series(prd, name=ticker)], axis=1)
 
@@ -95,5 +93,5 @@ assert sm_data.shape[0] == PRED_LEN
 
 dc['data'] = sm_data.to_dict()
 
-with open('./forecasts/LinearRegression.json', 'w') as fl:
+with open('./forecasts/ARIMA.json', 'w') as fl:
     json.dump(dc, fl)

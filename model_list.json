@@ -18,5 +18,12 @@
         "value": "xgb",
         "file": "XGB.json",
         "color": "black"
+    },
+
+    {
+        "name": "ARIMA",
+        "value": "arima",
+        "file": "ARIMA.json",
+        "color": "orange"
     }
 ]

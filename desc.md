@@ -1,6 +1,6 @@
 ## How does it work?
 
-Alcompare compares and visualizes various time series models based on their forecasts on finance data from yfinance python library. Models have access to around ~ 1 year of financial data (stocks' closing price) for a choosen ticker. Then based on that data they try to forecast stock closing price for the next year.
+Alcompare compares and visualizes various time series models based on their forecasts on finance data from yfinance python library. Models have access to around ~ 10 years of financial data (stocks' closing price) for a choosen ticker. Then based on that data they try to forecast stock closing price for the next year.
 
 ## How should I compare models?
 
