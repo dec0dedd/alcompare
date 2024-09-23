@@ -18,7 +18,7 @@ vis_start/vis_end - start/end date of points used in visualization
 
 tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS', 'AMZN', 'TSM']
 end_date = datetime.today() - timedelta(1)
-start_date = end_date - relativedelta(years=10)
+start_date = end_date - relativedelta(years=15)
 
 vis_end = end_date
 vis_start = vis_end - timedelta(VIS_LEN-1)

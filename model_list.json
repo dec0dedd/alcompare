@@ -25,5 +25,12 @@
         "value": "arima",
         "file": "ARIMA.json",
         "color": "orange"
+    },
+
+    {
+        "name": "Prophet",
+        "value": "prophet",
+        "file": "prophet.json",
+        "color": "blue"
     }
 ]
