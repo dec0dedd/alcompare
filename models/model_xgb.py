@@ -65,7 +65,7 @@ for ticker in tickers:
 
     mdl = ForecasterAutoreg(
         regressor=XGBRegressor(random_state=RND_INT, verbose=-1),
-        lags=30
+        lags=60
     )
 
     mdl.fit(y=y_train)

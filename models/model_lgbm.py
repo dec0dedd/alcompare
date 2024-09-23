@@ -64,7 +64,7 @@ for ticker in tickers:
 
     mdl = ForecasterAutoreg(
         regressor=LGBMRegressor(random_state=RND_INT, verbose=-1),
-        lags=30
+        lags=60
     )
 
     mdl.fit(y=y_train)
@@ -82,7 +82,7 @@ for ticker in tickers:
     dc['metrics'][ticker]['MAPE'] = mape
     dc['metrics'][ticker]['R2'] = r2
     dc['metrics'][ticker]['MedAE'] = medae
-    
+
     prd = mdl.predict(steps=PRED_LEN).reset_index(drop=True)
     prd.name = ticker
 

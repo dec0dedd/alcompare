@@ -1,0 +1,33 @@
+body {
+    background-color: #222222;
+}
+p {
+    font-family: "Poppins";
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+}
+
+.display-4 {
+    color: white;
+}
+
+/* restyle radio items */
+.radio-group .form-check {
+    padding-left: 0;
+}
+  
+.radio-group .btn-group > .form-check:not(:last-child) > .btn {
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+
+.radio-group .btn-group > .form-check:not(:first-child) > .btn {
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+margin-left: -1px;
+}
+
+.data-graph {
+    color: blue;
+}

@@ -64,7 +64,7 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 xaxis: {title: 'Date'},
                 yaxis: {title: 'Price (USD)'},
                 template: 'seaborn',
-                shapes: []
+                shapes: [],
             };
 
             var data = [trace];
