@@ -94,6 +94,11 @@ with open('desc.md', 'r') as file:
     md_text = file.read()
 
 
+def chunks(lst, n):
+    for i in range(0, len(lst), n):
+        yield lst[i:i + n]
+
+
 sidebar = html.Div(
     [
         html.H2("Alcompare", className='display-4', style={'text-align': 'center'}),
@@ -113,8 +118,8 @@ sidebar = html.Div(
         dcc.Checklist(
             id='model-checklist',
             options=[{'label': x['name'], 'value': x['value']} for x in mdl_data],
-            value=['line_reg', 'xgb'],
-            style={'margin-top': '5vh', 'margin-down': '5vh'}
+            value=['line_reg', 'xgb', 'prophet'],
+            style={'margin-top': '5vh', 'margin-down': '5vh', 'margin-left': '1vw', 'margin-right': '5vw'}
         ),
 
         html.Div(
