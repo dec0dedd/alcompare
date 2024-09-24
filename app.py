@@ -16,16 +16,6 @@ mdl_data = ""
 with open("model_list.json") as file:
     mdl_data = json.load(file)
 
-md_text = ""
-with open("desc.md") as file:
-    md_text = file.read()
-
-metric_style = {
-    'width': '95vw',
-    'marginLeft': 'auto',
-    'marginRight': 'auto',
-}
-
 graph_input = []
 pred_data = []
 
@@ -49,15 +39,6 @@ for mdl in mdl_data:
             dd.Input(f'pred-{Path(mdl["file"]).stem}', 'children')
         )
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.themes.DARKLY])
-
-md_text = ""
-with open('desc.md', 'r') as file:
-    md_text = file.read()
-
-
-def chunks(lst, n):
-    for i in range(0, len(lst), n):
-        yield lst[i:i + n]
 
 
 sidebar = html.Div(
