@@ -26,45 +26,6 @@ metric_style = {
     'marginRight': 'auto',
 }
 
-layout_data = [
-    html.H1("Alcompare", style={"text-align": "center"}),
-    dcc.Dropdown(
-        id='stock-dropdown',
-        options=[{'label': ticker, 'value': ticker} for ticker in tickers],
-        value=tickers[0]
-    ),
-
-    dcc.Graph(
-        id='stock-graph',
-        style={'width': '60vw', 'left-margin': '100px'}
-    ),
-
-    dcc.Checklist(
-        id='model-checklist',
-        options=[{'label': x['name'], 'value': x['value']} for x in mdl_data],
-        value=['line_reg', 'xgb']
-    ),
-
-    dcc.Tabs(
-        id='metric-tabs',
-        children=[
-            dcc.Tab(label='MSE', value='mse'),
-            dcc.Tab(label='MAPE', value='mape'),
-            dcc.Tab(label='R2', value='r2'),
-            dcc.Tab(label='MedAE', value='medae')
-        ],
-        value='mse',
-        style={'display': 'none'}
-    ),
-
-    dcc.Graph(
-        id='metric-graph',
-        style=metric_style
-    ),
-
-    dcc.Markdown(md_text)
-]
-
 graph_input = []
 pred_data = []
 

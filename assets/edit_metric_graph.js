@@ -21,9 +21,6 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                 }
             }
 
-            console.log("AAAAAAAAAAAAa")
-            console.log(model_data)
-
             var mdl_use = [];
             var mdl_chk = arguments[arg_idx]
 
@@ -67,7 +64,12 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
 
             var layout = {
                 title: 'Model metrics on ' + selected_stock + ' stock prices',
-                xaxis: {title: metric_conv[selected_metric]}
+                xaxis: {title: metric_conv[selected_metric], gridcolor: '#444'},
+                yaxis: {gridcolor: '#444'},
+                paper_bgcolor: '#1e1e1e',
+                plot_bgcolor: '#1e1e1e',
+                font: {'color': 'white'}
+
             }
 
             console.log(data)

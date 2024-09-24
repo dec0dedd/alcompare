@@ -61,9 +61,11 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
 
             var layout = {
                 title: selected_stock + ' Stock Prices',
-                xaxis: {title: 'Date'},
-                yaxis: {title: 'Price (USD)'},
-                template: 'seaborn',
+                xaxis: {title: 'Date', gridcolor: '#444'},
+                yaxis: {title: 'Price (USD)', gridcolor: '#444'},
+                paper_bgcolor: '#1e1e1e',
+                plot_bgcolor: '#1e1e1e',
+                font: {'color': 'white'},
                 shapes: [],
             };
 
@@ -110,7 +112,6 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
             };
 
             layout.shapes.push(pred_rect);
-
             return {
                 data: data,
                 layout: layout,
