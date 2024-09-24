@@ -30,7 +30,6 @@ run_app:
 	mv pages_files/_dash-layout pages_files/_dash-layout.json
 	mv pages_files/_dash-dependencies pages_files/_dash-dependencies.json
 	mv assets/* pages_files/assets/
-	mv desc.md pages_files/desc.md
 
 	ps | grep python | awk '{print $$1}' | xargs kill -9	
 
