@@ -4,7 +4,7 @@ import dash.dependencies as dd
 import json
 import os
 from utils import vis_start, vis_end, ppred_start, start_date, end_date
-from utils import download_stock_data, tickers
+from utils import download_stock_data, tickers, PRED_LEN
 from pathlib import Path
 
 import dash_bootstrap_components as dbc
@@ -120,7 +120,12 @@ main_contents = html.Div(
     [
         dcc.Graph(
             id='stock-graph',
-            style={'width': '70vw', 'margin': 'auto', 'margin-top': '3vh'},
+            style={
+                'width': '70vw',
+                'margin': 'auto',
+                'margin-top': '2vh',
+                'margin-left': '26vw'
+            },
             className='data-graph'
         ),
 
@@ -130,7 +135,108 @@ main_contents = html.Div(
             style={
                 'width': '70vw',
                 'margin': 'auto',
-                'margin-top': '3vh'
+                'margin-top': '2vh',
+                'margin-left': '26vw'
+            }
+        ),
+
+        html.Div(
+            [
+                html.H1("How does it work?"),
+                html.P(
+                    f"""
+                    Alcompare analyzes and visualizes the performance of multiple time series forecasting models 
+                    using financial data sourced from the yfinance Python library. 
+                    The models are trained on approximately 15 years of historical stock closing prices for a selected ticker. 
+                    Leveraging this extensive dataset, they aim to predict the stock's closing price for the next {PRED_LEN} days, 
+                    providing a robust comparison of forecasting accuracy and model effectiveness
+                    """
+                )
+            ],
+
+            style={
+                'text-align': 'center',
+                'height': '20vh',
+                'width': '70vw',
+                'margin-top': '4vh',
+                'margin-left': '26vw'
+            }
+        ),
+
+        html.Div(
+            [
+                html.H1("How should I compare models?"),
+                html.P(
+                    [
+                        """
+                        Alcompare delivers intuitive visualizations of model predictions, making interpretation simpler than raw data alone. 
+                        In addition, it calculates key performance metrics like """,
+                        html.A("MSE", href="https://en.wikipedia.org/wiki/Mean_squared_error"),
+                        ", ",
+                        html.A("MAPE", href="https://en.wikipedia.org/wiki/Mean_absolute_percentage_error"),
+                        ", ",
+                        html.A("R2", href="https://en.wikipedia.org/wiki/Coefficient_of_determination"),
+                        ", ",
+                        html.A("MedAE", href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.median_absolute_error.html"),
+                        " enabling more precise and quantitative comparisons."
+                    ]
+                )
+            ],
+
+            style={
+                'text-align': 'center',
+                'height': '20vh',
+                'width': '70vw',
+                'margin-left': '26vw',
+                'margin-top': '2vh'
+            }
+        ),
+
+        html.Div(
+            [
+                html.H1("Why?"),
+                html.P(
+                    [
+                        "A key motivation behind this project was to deepen my understanding of data visualization using Dash and Plotly. ",
+                        "Additionally, I saw it as an intriguing challenge to explore hosting a dynamic Dash application on GitHub Pages — "
+                        "an area where I noticed a lack of available resources. I decided it would be a valuable contribution to not only accomplish "
+                        "this but also create a comprehensive tutorial to guide others. If you're interested in learning how to host a Dash app with interactive, "
+                        "real-time graphs (like the one showcased here) on GitHub Pages, you can check out the tutorial I've written ",
+                        html.A("here", href="#"),
+                        "."
+                    ]
+                )
+            ],
+
+            style={
+                'text-align': 'center',
+                'height': '20vh',
+                'width': '70vw',
+                'margin-left': '26vw',
+                'margin-top': '2vh'
+            }
+        ),
+
+        html.Div(
+            [
+                html.H1("Can I contribute?"),
+                html.P(
+                    [
+                        "If you have an idea, suggestion or a comment feel free to open a merge request, issue or contact me via my ",
+                        html.A("email", href="mailto:michal.burzynski0805@gmail.com"),
+                        ". Feel free to visit my ",
+                        html.A("GitHub Profile", href="https://github.com/dec0dedd"),
+                        " and check out other projects."
+                    ]
+                )
+            ],
+
+            style={
+                'text-align': 'center',
+                'height': '20vh',
+                'width': '70vw',
+                'margin-left': '26vw',
+                'margin-top': '2vh'
             }
         )
     ],
@@ -138,7 +244,6 @@ main_contents = html.Div(
     style={
         'height': '100vh',
         'width': '75vw',
-        'margin-left': '25vw'
     }
 )
 
