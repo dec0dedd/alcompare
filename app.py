@@ -196,7 +196,8 @@ main_contents = html.Div(
                     using financial data sourced from the yfinance Python library. 
                     The models are trained on approximately 15 years of historical stock closing prices for a selected ticker. 
                     Leveraging this extensive dataset, they aim to predict the stock's closing price for the next {PRED_LEN} days, 
-                    providing a robust comparison of forecasting accuracy and model effectiveness
+                    providing a robust comparison of forecasting accuracy and model effectiveness. The prediction interval, where 
+                    models have to predict the price, is marked with blue, transparent rectangle.
                     """
                 )
             ],
@@ -225,7 +226,8 @@ main_contents = html.Div(
                         html.A("R2", href="https://en.wikipedia.org/wiki/Coefficient_of_determination"),
                         ", ",
                         html.A("MedAE", href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.median_absolute_error.html"),
-                        " enabling more precise and quantitative comparisons."
+                        " enabling more precise and quantitative comparisons. You can toggle between metrics by clicking respective buttons ",
+                        "on the sidebar."
                     ]
                 )
             ],
@@ -246,9 +248,9 @@ main_contents = html.Div(
                     [
                         "A key motivation behind this project was to deepen my understanding of data visualization using Dash and Plotly. ",
                         "Additionally, I saw it as an intriguing challenge to explore hosting a dynamic Dash application on GitHub Pages — "
-                        "an area where I noticed a lack of available resources. I decided it would be a valuable contribution to not only accomplish "
+                        "an area where I've noticed no tutorials. I decided it would be a valuable contribution to not only accomplish "
                         "this but also create a comprehensive tutorial to guide others. If you're interested in learning how to host a Dash app with interactive, "
-                        "real-time graphs (like the one showcased here) on GitHub Pages, you can check out the tutorial I've written ",
+                        "real-time graphs (like the ones showcased here) on GitHub Pages, you can check out the tutorial I've written ",
                         html.A("here", href="#"),
                         "."
                     ]
