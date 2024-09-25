@@ -64,7 +64,8 @@ for ticker in tickers:
 
     mdl = ForecasterAutoreg(
         regressor=LGBMRegressor(
-            n_estimators=1000,
+            n_estimators=3000,
+            learning_rate=0.01,
             random_state=RND_INT,
             verbose=-1,
             n_jobs=-1,

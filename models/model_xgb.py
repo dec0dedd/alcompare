@@ -64,7 +64,13 @@ for ticker in tickers:
     y_pred = df_pred.pop('prices')
 
     mdl = ForecasterAutoreg(
-        regressor=XGBRegressor(random_state=RND_INT, verbose=-1),
+        regressor=XGBRegressor(
+            n_estimators=3000,
+            learning_rate=0.01,
+            n_jobs=-1,
+            random_state=RND_INT,
+            verbose=-1
+        ),
         lags=120
     )
 

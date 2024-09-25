@@ -63,7 +63,13 @@ for ticker in tickers:
     y_pred = df_pred.pop('prices')
 
     mdl = ForecasterAutoreg(
-        regressor=CatBoostRegressor(random_state=RND_INT, verbose=0, allow_writing_files=False),
+        regressor=CatBoostRegressor(
+            n_estimators=3000,
+            learning_rate=0.01,
+            random_state=RND_INT,
+            verbose=0,
+            allow_writing_files=False
+        ),
         lags=120
     )
 
