@@ -3,7 +3,7 @@ run-name: Deploy HTML pages generated from Dash app
 on:
   push:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '30 0 * * *'
 jobs:
   get_linear:
     name: Generate LinearRegression forecasts

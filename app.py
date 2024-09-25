@@ -123,6 +123,64 @@ main_contents = html.Div(
 
         html.Div(
             [
+                html.H1("Model descriptions"),
+                dbc.Accordion(
+                    [
+                        dbc.AccordionItem(
+                            html.P([
+                                "This is a simple implementation of linear regression model from ",
+                                html.A("sklearn", href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html"),
+                                "."
+                            ]),
+                            title="Linear"
+                        ),
+                        dbc.AccordionItem(
+                            html.P([
+                                "lightgbm.LGBMRegressor model from ",
+                                html.A("LightGBM", href="https://lightgbm.readthedocs.io/en/latest/pythonapi/lightgbm.LGBMRegressor.html#lightgbm-lgbmregressor"),
+                                " python library."
+                            ]),
+                            title="LightGBM",
+                        ),
+                        dbc.AccordionItem(
+                            html.P([
+                                "xgboost.XGBRegressor model from ",
+                                html.A("XGBoost", href="https://xgboost.readthedocs.io/en/stable/python/python_api.html#xgboost.XGBRegressor"),
+                                " python library."
+                            ]),
+                            title="XGBoost",
+                        ),
+                        dbc.AccordionItem(
+                            html.P([
+                                "ARIMA model from ",
+                                html.A("sktime", href="https://www.sktime.net/en/v0.21.0/api_reference/auto_generated/sktime.forecasting.arima.ARIMA.html"),
+                                " python library."
+                            ]),
+                            title="ARIMA",
+                        ),
+                        dbc.AccordionItem(
+                            html.P([
+                                "Meta's Prophet model from ",
+                                html.A("Prophet", href="https://facebook.github.io/prophet/"),
+                                " python library."
+                            ]),
+                            title="Prophet",
+                        ),
+                    ]
+                )
+            ],
+
+            style={
+                'text-align': 'center',
+                'height': '20vh',
+                'width': '70vw',
+                'margin-top': '4vh',
+                'margin-left': '26vw'
+            }
+        ),
+
+        html.Div(
+            [
                 html.H1("How does it work?"),
                 html.P(
                     f"""
@@ -139,7 +197,7 @@ main_contents = html.Div(
                 'text-align': 'center',
                 'height': '20vh',
                 'width': '70vw',
-                'margin-top': '4vh',
+                'margin-top': '25vh',
                 'margin-left': '26vw'
             }
         ),
