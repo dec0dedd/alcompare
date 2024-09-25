@@ -65,7 +65,7 @@ for ticker in tickers:
 
     mdl = ForecasterAutoreg(
         regressor=XGBRegressor(random_state=RND_INT, verbose=-1),
-        lags=60
+        lags=120
     )
 
     mdl.fit(y=y_train)
@@ -74,7 +74,7 @@ for ticker in tickers:
     mape = mean_absolute_percentage_error(y_pred, mdl.predict(y_pred.shape[0]))
     r2 = r2_score(y_pred, mdl.predict(y_pred.shape[0]))
     medae = median_absolute_error(y_pred, mdl.predict(y_pred.shape[0]))
-    print(f"Metrics for LGBM forecast on {ticker}:")
+    print(f"Metrics for XGB forecast on {ticker}:")
     print(f"MSE: {mse}")
     print(f"MAPE: {mape}")
     print(f"R2: {r2}")

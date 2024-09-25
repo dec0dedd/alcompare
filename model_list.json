@@ -32,5 +32,12 @@
         "value": "prophet",
         "file": "prophet.json",
         "color": "#3700B3"
+    },
+
+    {
+        "name": "CatBoost",
+        "value": "cat",
+        "file": "CAT.json",
+        "color": "#c65939"
     }
 ]

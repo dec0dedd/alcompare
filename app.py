@@ -128,9 +128,9 @@ main_contents = html.Div(
                     [
                         dbc.AccordionItem(
                             html.P([
-                                "This is a simple implementation of linear regression model from ",
+                                "A LinearRegression model from  ",
                                 html.A("sklearn", href="https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html"),
-                                "."
+                                " python library."
                             ]),
                             title="Linear"
                         ),
@@ -166,6 +166,14 @@ main_contents = html.Div(
                             ]),
                             title="Prophet",
                         ),
+                        dbc.AccordionItem(
+                            html.P([
+                                "CatBoostRegressor model from ",
+                                html.A("CatBoost", href="https://catboost.ai/en/docs/concepts/python-reference_catboostregressor"),
+                                " python library."
+                            ]),
+                            title="CatBoost"
+                        )
                     ]
                 )
             ],
@@ -197,7 +205,7 @@ main_contents = html.Div(
                 'text-align': 'center',
                 'height': '20vh',
                 'width': '70vw',
-                'margin-top': '25vh',
+                'margin-top': '32vh',
                 'margin-left': '26vw'
             }
         ),

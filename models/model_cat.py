@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 from skforecast.ForecasterAutoreg import ForecasterAutoreg
-from lightgbm import LGBMRegressor
+from catboost import CatBoostRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_percentage_error
 from sklearn.metrics import r2_score, median_absolute_error
 from datetime import datetime
@@ -63,7 +63,7 @@ for ticker in tickers:
     y_pred = df_pred.pop('prices')
 
     mdl = ForecasterAutoreg(
-        regressor=LGBMRegressor(random_state=RND_INT, verbose=-1),
+        regressor=CatBoostRegressor(random_state=RND_INT, verbose=0, allow_writing_files=False),
         lags=120
     )
 
@@ -73,7 +73,7 @@ for ticker in tickers:
     mape = mean_absolute_percentage_error(y_pred, mdl.predict(y_pred.shape[0]))
     r2 = r2_score(y_pred, mdl.predict(y_pred.shape[0]))
     medae = median_absolute_error(y_pred, mdl.predict(y_pred.shape[0]))
-    print(f"Metrics for LGBM forecast on {ticker}:")
+    print(f"Metrics for CatBoost forecast on {ticker}:")
     print(f"MSE: {mse}")
     print(f"MAPE: {mape}")
     print(f"R^2: {r2}")
@@ -97,8 +97,7 @@ sm_data.set_index('dates', inplace=True)
 
 assert sm_data.shape[0] == PRED_LEN
 
-#sm_data.to_json('./forecasts/LGBM.json')
 dc['data'] = sm_data.to_dict()
 
-with open('./forecasts/LGBM.json', 'w') as fl:
+with open('./forecasts/CAT.json', 'w') as fl:
     json.dump(dc, fl)
