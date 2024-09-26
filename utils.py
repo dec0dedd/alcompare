@@ -6,8 +6,8 @@ import warnings
 warnings.filterwarnings('ignore')
 
 RND_INT = 1237  # random state in forecasting models
-PRED_LEN = 120  # number of days of prediction for forecasting models
-VIS_LEN = 240  # number of days used in visualization
+PRED_LEN = 540  # number of days of prediction for forecasting models
+VIS_LEN = 1080  # number of days used in visualization
 
 """
 start_date/end_date - start/end date of all data
@@ -18,7 +18,7 @@ vis_start/vis_end - start/end date of points used in visualization
 
 tickers = ['MSFT', 'GOOGL', 'NVDA', 'GS', 'AMZN', 'TSM']
 end_date = datetime.today() - timedelta(1)
-start_date = end_date - relativedelta(years=15)
+start_date = end_date - relativedelta(years=10)
 
 vis_end = end_date
 vis_start = vis_end - timedelta(VIS_LEN-1)
