@@ -4,7 +4,7 @@ Alcompare is a simple Python and JavaScript project for comparing different mode
 
 Visualizations are made using [Dash](https://dash.plotly.com/) and [Plotly.js](https://plotly.com/javascript/) for clientside callbacks.
 
-# Run locally
+## Run locally
 In order to run the app locally you need to download the repository and install all dependencies. Then generate forecasts of all models with:
 ```
 make forecast
@@ -15,7 +15,7 @@ python app.py
 ```
 and go to `http://127.0.0.1:8050`.
 
-# Adding new models
+## Adding new models
 
 In order to add a model you need to do the following:
 
